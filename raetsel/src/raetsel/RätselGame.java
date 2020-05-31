@@ -37,14 +37,24 @@ public class RätselGame {
 	public static void lvl1() {
 		String result = "";
 		while (w.isOpen()) {
-			w.drawStringCentered("level: " + level, 250, 20);
-			w.drawStringCentered("level: " + level, 250, 20);
+			levelnr();
+			if (result.equals("21") & w.isKeyPressed("enter")) {
+				win();
+				lvl2();
+			}
+
 			result = keyboard(result);
+			w.setFontSize(30);
+			w.drawStringCentered("1, 1, 2, 3, 5, 8, 13, ???", 250, 100);
 			w.drawStringCentered(result, 250, 200);
 
 			w.refreshAndClear(100);
 
 		}
+	}
+
+	public static void lvl2() {
+
 	}
 
 	public static String keyboard(String current) {
@@ -59,7 +69,22 @@ public class RätselGame {
 				next = next + item;
 			}
 		}
-//		list.clear();
 		return next;
+	}
+
+	public static void levelnr() {
+		w.setFontSize(15);
+		w.drawStringCentered("level: " + level, 250, 20);
+	}
+
+	public static void win() {
+		w.setColor(0, 255, 0);
+		w.setStrokeWidth(20);
+		w.drawRect(0, 0, 500, 500);
+		w.setFontSize(50);
+		w.drawStringCentered("YESSIR!!", 250, 250);
+		w.setColor(0, 0, 0);
+		w.refresh();
+		w.refresh(1000);
 	}
 }
