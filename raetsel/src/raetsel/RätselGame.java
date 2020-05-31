@@ -50,7 +50,8 @@ public class RätselGame {
 	public static void lvl10() {
 		String result = "";
 		while (w.isOpen()) {
-
+			w.drawStringCentered("1, 2, 6, 30, 210, ?", 250, 100);
+			w.setFontSize(30);
 			w.refreshAndClear(100);
 
 		}
