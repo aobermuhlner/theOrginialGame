@@ -1,6 +1,7 @@
 
 package raetsel;
 
+import java.util.List;
 import java.util.Random;
 
 import gui.Window;
@@ -34,10 +35,31 @@ public class RätselGame {
 	}
 
 	public static void lvl1() {
+		String result = "";
 		while (w.isOpen()) {
 			w.drawStringCentered("level: " + level, 250, 20);
+			w.drawStringCentered("level: " + level, 250, 20);
+			result = keyboard(result);
+			w.drawStringCentered(result, 250, 200);
 
-			w.refreshAndClear();
+			w.refreshAndClear(100);
+
 		}
+	}
+
+	public static String keyboard(String current) {
+		List<String> list = w.getPressedKeys();
+		String next = current;
+		for (String item : list) {
+			if (item.equals("back_space")) {
+				if (next.length() > 0) {
+					next = next.substring(0, next.length() - 1);
+				}
+			} else {
+				next = next + item;
+			}
+		}
+//		list.clear();
+		return next;
 	}
 }
