@@ -29,7 +29,7 @@ public class RätselGame {
 				level = 1;
 				w.setColor(0, 0, 0);
 				w.setFontSize(15);
-				lvl1();
+				lvl10();
 			}
 		}
 	}
@@ -46,6 +46,16 @@ public class RätselGame {
 
 		}
 	}
+	
+	public static void lvl10() {
+		String result = "";
+		while (w.isOpen()) {
+
+			w.refreshAndClear(100);
+
+		}
+	}
+
 
 	public static String keyboard(String current) {
 		List<String> list = w.getPressedKeys();
