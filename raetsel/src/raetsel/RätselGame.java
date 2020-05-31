@@ -14,8 +14,8 @@ public class RätselGame {
 		Random rand = new Random(500);
 		w = new Window("start", 500, 500);
 		w.open();
+		lvl2();
 		w.setFontSize(30);
-
 		while (w.isOpen()) {
 			w.setColor(20, 20, 20);
 			w.fillRect(0, 0, 500, 500);
@@ -42,7 +42,6 @@ public class RätselGame {
 				win();
 				lvl2();
 			}
-
 			result = keyboard(result);
 			w.setFontSize(30);
 			w.drawStringCentered("1, 1, 2, 3, 5, 8, 13, ???", 250, 100);
@@ -54,6 +53,98 @@ public class RätselGame {
 	}
 
 	public static void lvl2() {
+		int time = 1;
+		int nr = -1;
+		int[] enemies = new int[12];
+		int[] enemiesy = new int[12];
+		boolean[] green = new boolean[12];
+		int y = 300;
+		Random rand = new Random();
+
+		while (w.isOpen()) {
+			w.drawOval(30, y, 10, 20);
+			w.drawLine(0, 320, 500, 320);
+			w.drawLine(0, 220, 500, 220);
+
+			if (w.isKeyPressed("up") & y > 220) {
+				y--;
+			} else if (y >= 220 & y < 300) {
+				y++;
+			}
+
+			if (time % 200 == 0 && nr < 11) {
+//				time = 0;
+				nr++;
+				enemies[nr] = 550;
+				enemiesy[nr] = rand.nextInt(80) + 220;
+				if (nr % 2 == 0) {
+					green[nr] = true;
+				}
+			}
+			for (int i = 0; i <= nr; i++) {
+				if (green[i] == false) {
+					w.setColor(0, 255, 0);
+				} else {
+					w.setColor(255, 0, 0);
+				}
+				w.fillRect(enemies[i], enemiesy[i], 5, 20);
+				w.drawRect(enemies[i], enemiesy[i], 5, 20);
+				if (enemies[i] == 30) {
+					if (green[i] == true & Math.abs(y - enemiesy[i]) > 20) {
+						fuck();
+						lvl2();
+					} else if (green[i] == false & Math.abs(y - enemiesy[i]) < 20) {
+						fuck();
+						lvl2();
+					}
+				}
+				enemies[i]--;
+			}
+			w.setColor(0, 0, 0);
+			time++;
+			if (enemies[9] < 0) {
+				green[11] = true;
+				green[10] = false;
+			}
+			if (enemies[11] < -50) {
+				lvl3();
+			}
+			w.refreshAndClear();
+		}
+	}
+
+	public static void lvl3() {
+		w.close();
+
+	}
+
+	public static void lvl4() {
+		w.close();
+
+	}
+
+	public static void lvl5() {
+		w.close();
+
+	}
+
+	public static void lvl6() {
+		w.close();
+
+	}
+
+	public static void lvl7() {
+		w.close();
+
+	}
+
+	public static void lvl8() {
+		w.close();
+
+	}
+
+	public static void lvl9() {
+		w.close();
 
 	}
 
@@ -86,5 +177,21 @@ public class RätselGame {
 		w.setColor(0, 0, 0);
 		w.refresh();
 		w.refresh(1000);
+	}
+
+	public static void fuck() {
+		w.setColor(255, 0, 0);
+		w.setStrokeWidth(20);
+		w.drawRect(0, 0, 500, 500);
+		w.setFontSize(50);
+		w.drawStringCentered("you fucked up...", 250, 250);
+		w.setColor(0, 0, 0);
+		w.refresh();
+		w.refresh(1000);
+		w.setStrokeWidth(1);
+	}
+
+	public static void lvl2_jump() {
+
 	}
 }
