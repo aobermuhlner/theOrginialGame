@@ -62,7 +62,14 @@ public class RätselGame {
 		Random rand = new Random();
 
 		while (w.isOpen()) {
-			w.drawOval(30, y, 10, 20);
+			w.setColor(136, 128, 171);
+			w.fillRect(0, 0, 500, 500);
+			w.setColor(0, 0, 0);
+			w.setFontSize(20);
+			w.drawStringCentered("up", 250, 100);
+			w.setColor(60, 256, 77);
+			w.fillOval(30, y, 10, 20);
+			w.setColor(0, 0, 0);
 			w.drawLine(0, 320, 500, 320);
 			w.drawLine(0, 220, 500, 220);
 
