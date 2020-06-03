@@ -11,10 +11,11 @@ public class RätselGame {
 	static Window w = new Window("game", 500, 500);
 
 	public static void main(String[] args) {
+
 		Random rand = new Random(500);
 		w = new Window("start", 500, 500);
 		w.open();
-		lvl2();
+
 		w.setFontSize(30);
 		while (w.isOpen()) {
 			w.setColor(20, 20, 20);
@@ -24,8 +25,8 @@ public class RätselGame {
 			w.drawStringCentered("press here to start:", 250, 100);
 			w.refreshAndClear(500);
 
-			if (w.wasLeftMouseButtonClicked() & Math.abs(w.getMouseX() - 237) < 20
-					& Math.abs(w.getMouseY() - 95) < 12) {
+			if (w.wasLeftMouseButtonClicked() & Math.abs(w.getMouseX() - 237) < 30
+					& Math.abs(w.getMouseY() - 90) < 20) {
 				level = 1;
 				w.setColor(0, 0, 0);
 				w.setFontSize(15);
@@ -33,8 +34,8 @@ public class RätselGame {
 			}
 		}
 	}
-
-	public static void lvl1() {
+g
+	public static void lvl1() {// fib
 		String result = "";
 		while (w.isOpen()) {
 			levelnr();
@@ -52,7 +53,8 @@ public class RätselGame {
 		}
 	}
 
-	public static void lvl2() {
+	public static void lvl2() {// up
+		w.setStrokeWidth(1);
 		int time = 1;
 		int nr = -1;
 		int[] enemies = new int[12];
@@ -79,7 +81,7 @@ public class RätselGame {
 				y++;
 			}
 
-			if (time % 200 == 0 && nr < 11) {
+			if (time % 100 == 0 && nr < 11) {
 //				time = 0;
 				nr++;
 				enemies[nr] = 550;
@@ -105,7 +107,7 @@ public class RätselGame {
 						lvl2();
 					}
 				}
-				enemies[i]--;
+				enemies[i] -= 4;
 			}
 			w.setColor(0, 0, 0);
 			time++;
@@ -120,9 +122,73 @@ public class RätselGame {
 		}
 	}
 
-	public static void lvl3() {
-		w.close();
+	public static void lvl3() {// down
+		w.setStrokeWidth(1);
+		int time = 1;
+		int nr = -1;
+		int[] enemies = new int[12];
+		int[] enemiesy = new int[12];
+		boolean[] green = new boolean[12];
+		int y = 220;
+		Random rand = new Random();
 
+		while (w.isOpen()) {
+			w.setColor(136, 128, 171);
+			w.fillRect(0, 0, 500, 500);
+			w.setColor(0, 0, 0);
+			w.setFontSize(20);
+			w.drawStringCentered("down", 250, 100);
+			w.setColor(60, 256, 77);
+			w.fillOval(30, y, 10, 20);
+			w.setColor(0, 0, 0);
+			w.drawLine(0, 320, 500, 320);
+			w.drawLine(0, 220, 500, 220);
+
+			if (w.isKeyPressed("down") & y > 220) {
+				y++;
+			} else if (y <= 300 & y >= 220) {
+				y--;
+			}
+
+			if (time % 100 == 0 && nr < 11) {
+//					time = 0;
+				nr++;
+				enemies[nr] = 550;
+				enemiesy[nr] = rand.nextInt(80) + 220;
+				if (nr % 2 == 0) {
+					green[nr] = true;
+				}
+			}
+			for (int i = 0; i <= nr; i++) {
+				if (green[i] == false) {
+					w.setColor(0, 255, 0);
+				} else {
+					w.setColor(255, 0, 0);
+				}
+				w.fillRect(enemies[i], enemiesy[i], 5, 20);
+				w.drawRect(enemies[i], enemiesy[i], 5, 20);
+				if (enemies[i] == 30) {
+					if (green[i] == false & Math.abs(y - enemiesy[i]) > 20) {
+						fuck();
+						lvl4();
+					} else if (green[i] == true & Math.abs(y - enemiesy[i]) < 20) {
+						fuck();
+						lvl4();
+					}
+				}
+				enemies[i] -= 4;
+			}
+			w.setColor(0, 0, 0);
+			time++;
+			if (enemies[9] < 0) {
+				green[11] = true;
+				green[10] = false;
+			}
+			if (enemies[11] < -50) {
+				lvl4();
+			}
+			w.refreshAndClear();
+		}
 	}
 
 	public static void lvl4() {
@@ -198,7 +264,4 @@ public class RätselGame {
 		w.setStrokeWidth(1);
 	}
 
-	public static void lvl2_jump() {
-
-	}
 }
