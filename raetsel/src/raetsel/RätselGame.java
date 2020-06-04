@@ -9,6 +9,7 @@ import gui.Window;
 public class RätselGame {
 	static int level;
 	static Window w = new Window("game", 500, 500);
+	static String numLvlDesc = "Find the next number!";
 
 	public static void main(String[] args) {
 		Random rand = new Random(500);
@@ -29,7 +30,7 @@ public class RätselGame {
 				level = 1;
 				w.setColor(0, 0, 0);
 				w.setFontSize(15);
-				lvl10();
+				lvl11_snake();
 			}
 		}
 	}
@@ -37,10 +38,11 @@ public class RätselGame {
 	public static void lvl1() {
 		String result = "";
 		while (w.isOpen()) {
-			levelnr();
+			
+			levelnr(numLvlDesc);
 			if (result.equals("21") & w.isKeyPressed("enter")) {
 				win();
-				lvl2();
+				lvl10();
 			}
 
 			result = keyboard(result);
@@ -56,6 +58,42 @@ public class RätselGame {
 	public static void lvl10() {
 		String result = "";
 		while (w.isOpen()) {
+			levelnr(numLvlDesc);
+			if (result.equals("2310") & w.isKeyPressed("enter")) {
+				win();
+				lvl11_snake();
+			}
+
+			result = keyboard(result);
+
+			w.setFontSize(30);
+			w.drawStringCentered("1, 2, 6, 30, 210, ?", 250, 100);
+			w.drawStringCentered(result, 250, 200);
+			
+			w.refreshAndClear(100);
+
+		}
+	}
+	
+	public static void lvl11_snake() {
+		String result = "";
+		levelnr(numLvlDesc);
+		Lvl11_Snake snake = new Lvl11_Snake();
+		snake.lvl11_snake(w);
+		if (result.equals("21") & w.isKeyPressed("enter")) {
+			win();
+			lvl12();
+		}
+	}
+	
+	public static void lvl12() {
+		String result = "";
+		while (w.isOpen()) {
+			levelnr(numLvlDesc);
+			if (result.equals("2310") & w.isKeyPressed("enter")) {
+				win();
+				lvl12();
+			}
 			w.drawStringCentered("1, 2, 6, 30, 210, ?", 250, 100);
 			w.setFontSize(30);
 			w.refreshAndClear(100);
@@ -83,12 +121,14 @@ public class RätselGame {
 		return next;
 	}
 
-	public static void levelnr() {
+	public static void levelnr(String lvlDesc) {
 		w.setFontSize(15);
 		w.drawStringCentered("level: " + level, 250, 20);
+		w.drawStringCentered(lvlDesc, 250, 40);
 	}
 
 	public static void win() {
+		level++;
 		w.setColor(0, 255, 0);
 		w.setStrokeWidth(20);
 		w.drawRect(0, 0, 500, 500);
